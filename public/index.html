@@ -326,7 +326,7 @@
             errorState.classList.add('hidden');
             
             try {
-                const res = await fetch('/api/instagram');
+                const res = await fetch('/.netlify/functions/instagram');
                 const data = await res.json();
                 
                 if (data.error) {
