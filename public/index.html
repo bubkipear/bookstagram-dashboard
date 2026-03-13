@@ -9,8 +9,8 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fafafa;
-            color: #1a1a1a;
+            background: #0d0d0d;
+            color: #e5e5e5;
             min-height: 100vh;
             padding: 32px 24px;
             max-width: 1000px;
@@ -24,7 +24,7 @@
         .header h1 {
             font-size: 24px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: #fff;
             margin-bottom: 4px;
         }
         
@@ -41,9 +41,9 @@
         }
         
         .refresh-btn {
-            background: #1a1a1a;
+            background: #fff;
             border: none;
-            color: white;
+            color: #0d0d0d;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
@@ -55,15 +55,15 @@
             gap: 8px;
         }
         
-        .refresh-btn:hover:not(:disabled) { opacity: 0.8; }
+        .refresh-btn:hover:not(:disabled) { opacity: 0.85; }
         .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         
         .refresh-btn .spinner {
             display: none;
             width: 14px;
             height: 14px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-top-color: #0d0d0d;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -74,32 +74,32 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         
         #lastUpdated {
-            color: #999;
+            color: #555;
             font-size: 13px;
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px;
-            margin-bottom: 40px;
+            gap: 12px;
+            margin-bottom: 32px;
         }
         
         .stat-card {
-            background: white;
+            background: #1a1a1a;
             border-radius: 12px;
             padding: 20px;
-            border: 1px solid #eee;
+            border: 1px solid #262626;
         }
         
         .stat-card .value {
             font-size: 28px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: #fff;
         }
         
         .stat-card .label {
-            color: #888;
+            color: #666;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -107,53 +107,60 @@
         }
         
         .stat-card .sublabel {
-            color: #aaa;
+            color: #444;
             font-size: 11px;
             margin-top: 2px;
         }
         
+        .stat-card .change {
+            font-size: 12px;
+            margin-top: 6px;
+        }
+        .stat-card .change.up { color: #22c55e; }
+        .stat-card .change.down { color: #ef4444; }
+        .stat-card .change.neutral { color: #666; }
+        
         .section {
-            background: white;
+            background: #1a1a1a;
             border-radius: 12px;
             padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid #eee;
+            margin-bottom: 20px;
+            border: 1px solid #262626;
         }
         
         .section h2 {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #888;
+            color: #666;
             margin-bottom: 20px;
         }
         
         .columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 20px;
         }
         
         @media (max-width: 700px) {
             .columns { grid-template-columns: 1fr; }
         }
         
-        .post-list { display: flex; flex-direction: column; gap: 8px; }
+        .post-list { display: flex; flex-direction: column; gap: 4px; }
         
         .post-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
             color: inherit;
             transition: background 0.15s;
         }
         
-        .post-item:last-child { border-bottom: none; }
-        .post-item:hover { background: #fafafa; margin: 0 -12px; padding: 12px; border-radius: 8px; }
+        .post-item:hover { background: #262626; }
         
         .post-item .title {
             flex: 1;
@@ -162,32 +169,32 @@
             overflow: hidden;
             text-overflow: ellipsis;
             margin-right: 12px;
-            color: #333;
+            color: #ccc;
         }
         
         .post-item .meta {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             font-size: 13px;
-            color: #888;
+            color: #666;
         }
         
-        .post-item .likes { color: #e74c3c; }
-        .post-item .comments { color: #3498db; }
+        .post-item .likes { color: #ef4444; }
+        .post-item .comments { color: #3b82f6; }
         
         .chart-container {
-            height: 160px;
+            height: 140px;
             display: flex;
             align-items: flex-end;
-            gap: 4px;
+            gap: 3px;
             padding: 16px 0;
         }
         
         .bar {
             flex: 1;
-            background: #1a1a1a;
-            border-radius: 3px 3px 0 0;
-            min-width: 8px;
+            background: #fff;
+            border-radius: 2px 2px 0 0;
+            min-width: 6px;
             position: relative;
             cursor: pointer;
             transition: opacity 0.15s;
@@ -200,7 +207,7 @@
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: #1a1a1a;
+            background: #333;
             color: white;
             padding: 8px 12px;
             border-radius: 6px;
@@ -211,71 +218,125 @@
             transition: opacity 0.15s;
             z-index: 10;
             margin-bottom: 8px;
+            border: 1px solid #444;
         }
         
         .bar:hover .bar-tooltip { opacity: 1; }
         
         .chart-label {
-            color: #aaa;
+            color: #444;
             font-size: 12px;
             text-align: center;
             margin-top: 8px;
         }
         
-        .followers-history {
-            padding: 20px 0;
-        }
-        
-        .followers-history .note {
-            color: #888;
-            font-size: 13px;
-            text-align: center;
-            padding: 40px 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-        
-        .milestone-tracker {
+        .followers-chart-container {
+            height: 100px;
             display: flex;
-            align-items: center;
-            gap: 24px;
+            align-items: flex-end;
+            gap: 4px;
             padding: 16px 0;
         }
         
-        .milestone {
-            text-align: center;
+        .followers-chart-container .bar {
+            background: #22c55e;
         }
         
-        .milestone .target {
-            font-size: 24px;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-        
-        .milestone .label {
-            font-size: 12px;
-            color: #888;
-        }
-        
-        .milestone .progress {
+        .followers-history .note {
+            color: #555;
             font-size: 13px;
-            color: #27ae60;
+            text-align: center;
+            padding: 30px 20px;
+            background: #141414;
+            border-radius: 8px;
+        }
+        
+        .milestone-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid #262626;
+            margin-bottom: 16px;
+        }
+        
+        .milestone-info {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        
+        .milestone-info .current {
+            font-size: 32px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .milestone-info .target {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .milestone-progress {
+            text-align: right;
+        }
+        
+        .milestone-progress .togo {
+            font-size: 20px;
+            font-weight: 500;
+            color: #22c55e;
+        }
+        
+        .milestone-progress .label {
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .insight-card {
+            background: #141414;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        
+        .insight-card .label {
+            font-size: 11px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        
+        .insight-card .value {
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+        }
+        
+        .insight-card .detail {
+            font-size: 12px;
+            color: #666;
             margin-top: 4px;
         }
         
         .error-state {
             text-align: center;
             padding: 40px 20px;
-            color: #e74c3c;
-            background: #fef5f5;
+            color: #ef4444;
+            background: #1f1515;
             border-radius: 8px;
             margin: 20px 0;
-            border: 1px solid #fecaca;
+            border: 1px solid #3f2020;
         }
         
         .footer {
             text-align: center;
-            color: #bbb;
+            color: #333;
             font-size: 12px;
             margin-top: 40px;
         }
@@ -304,6 +365,7 @@
             <div class="stat-card">
                 <div class="value" id="followers">—</div>
                 <div class="label">Followers</div>
+                <div class="change neutral" id="followersChange"></div>
             </div>
             <div class="stat-card">
                 <div class="value" id="posts">—</div>
@@ -321,20 +383,49 @@
         </div>
         
         <div class="section">
-            <h2>Follower Milestones</h2>
-            <div class="milestone-tracker">
-                <div class="milestone">
-                    <div class="target">500</div>
-                    <div class="label">Next milestone</div>
-                    <div class="progress" id="milestoneProgress">— to go</div>
+            <h2>Follower Growth</h2>
+            <div class="milestone-row">
+                <div class="milestone-info">
+                    <span class="current" id="currentFollowers">—</span>
+                    <span class="target">/ <span id="nextMilestone">500</span></span>
+                </div>
+                <div class="milestone-progress">
+                    <div class="togo" id="toGo">—</div>
+                    <div class="label">to next milestone</div>
                 </div>
             </div>
             <div class="followers-history">
                 <div class="note" id="followersNote">
-                    📈 Follower history will build up over time as you refresh.<br>
-                    <span style="font-size: 12px; color: #aaa;">Each refresh saves a snapshot for tracking.</span>
+                    📈 Follower history builds up over time.<br>
+                    <span style="color: #444;">Each refresh saves a snapshot.</span>
                 </div>
-                <div id="followersChart" class="chart-container hidden"></div>
+                <div id="followersChart" class="followers-chart-container hidden"></div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Additional Insights</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="label">Posting Frequency</div>
+                    <div class="value" id="postFrequency">—</div>
+                    <div class="detail" id="postFrequencyDetail">posts per week</div>
+                </div>
+                <div class="insight-card">
+                    <div class="label">Best Performing Day</div>
+                    <div class="value" id="bestDay">—</div>
+                    <div class="detail" id="bestDayDetail">avg likes</div>
+                </div>
+                <div class="insight-card">
+                    <div class="label">Content Type</div>
+                    <div class="value" id="contentType">—</div>
+                    <div class="detail" id="contentTypeDetail">most used</div>
+                </div>
+                <div class="insight-card">
+                    <div class="label">Avg Comments</div>
+                    <div class="value" id="avgCommentsInsight">—</div>
+                    <div class="detail">per post</div>
+                </div>
             </div>
         </div>
         
@@ -351,7 +442,7 @@
             </div>
             
             <div class="section">
-                <h2>Lower Performers</h2>
+                <h2>Room to Grow</h2>
                 <div class="post-list" id="bottom5"></div>
             </div>
         </div>
@@ -359,7 +450,7 @@
         <div class="section">
             <h2>This Week</h2>
             <div class="post-list" id="thisWeek"></div>
-            <p id="noPostsThisWeek" class="hidden" style="color: #888; text-align: center; padding: 20px;">No posts this week</p>
+            <p id="noPostsThisWeek" class="hidden" style="color: #555; text-align: center; padding: 20px;">No posts this week</p>
         </div>
     </div>
     
@@ -368,7 +459,6 @@
     </div>
 
     <script>
-        // Simple local storage for follower history
         const STORAGE_KEY = 'bookstagram_follower_history';
         
         function getFollowerHistory() {
@@ -383,7 +473,6 @@
             const history = getFollowerHistory();
             const today = new Date().toISOString().split('T')[0];
             
-            // Only save one snapshot per day
             const existingToday = history.find(h => h.date === today);
             if (existingToday) {
                 existingToday.followers = followers;
@@ -413,18 +502,65 @@
             const range = maxFollowers - minFollowers || 1;
             
             container.innerHTML = history.map((h, i) => {
-                const height = ((h.followers - minFollowers) / range * 80) + 20;
+                const height = ((h.followers - minFollowers) / range * 70) + 30;
                 const change = i > 0 ? h.followers - history[i-1].followers : 0;
                 const changeStr = change > 0 ? `+${change}` : change.toString();
                 return `
                     <div class="bar" style="height: ${height}%">
                         <div class="bar-tooltip">
                             <strong>${h.followers} followers</strong><br>
-                            ${h.date}${i > 0 ? `<br>${changeStr} from prev` : ''}
+                            ${formatDate(h.date)}${i > 0 ? `<br>${changeStr} change` : ''}
                         </div>
                     </div>
                 `;
             }).join('');
+        }
+        
+        function calculateInsights(posts, chartData) {
+            // Posting frequency (posts per week based on date range)
+            if (chartData.length >= 2) {
+                const firstDate = new Date(chartData[0].date);
+                const lastDate = new Date(chartData[chartData.length - 1].date);
+                const weeks = Math.max(1, (lastDate - firstDate) / (7 * 24 * 60 * 60 * 1000));
+                const postsPerWeek = (chartData.length / weeks).toFixed(1);
+                document.getElementById('postFrequency').textContent = postsPerWeek;
+            }
+            
+            // Best performing day
+            const dayStats = {};
+            chartData.forEach(p => {
+                const day = new Date(p.date).toLocaleDateString('en-US', { weekday: 'long' });
+                if (!dayStats[day]) dayStats[day] = { total: 0, count: 0 };
+                dayStats[day].total += p.likes;
+                dayStats[day].count++;
+            });
+            
+            let bestDay = null;
+            let bestAvg = 0;
+            for (const [day, stats] of Object.entries(dayStats)) {
+                const avg = stats.total / stats.count;
+                if (avg > bestAvg) {
+                    bestAvg = avg;
+                    bestDay = day;
+                }
+            }
+            if (bestDay) {
+                document.getElementById('bestDay').textContent = bestDay;
+                document.getElementById('bestDayDetail').textContent = `${Math.round(bestAvg)} avg likes`;
+            }
+            
+            // Content type (from API data if available)
+            const types = {};
+            posts.forEach(p => {
+                const type = p.media_type || 'IMAGE';
+                types[type] = (types[type] || 0) + 1;
+            });
+            const topType = Object.entries(types).sort((a, b) => b[1] - a[1])[0];
+            if (topType) {
+                const typeNames = { 'CAROUSEL_ALBUM': 'Carousels', 'IMAGE': 'Images', 'VIDEO': 'Videos' };
+                document.getElementById('contentType').textContent = typeNames[topType[0]] || topType[0];
+                document.getElementById('contentTypeDetail').textContent = `${topType[1]} posts (${Math.round(topType[1]/posts.length*100)}%)`;
+            }
         }
         
         async function refreshData() {
@@ -443,22 +579,45 @@
                     throw new Error(data.error + (data.details ? ': ' + JSON.stringify(data.details) : ''));
                 }
                 
-                // Update stats
-                document.getElementById('followers').textContent = data.profile.followers.toLocaleString();
+                const followers = data.profile.followers;
+                
+                // Update main stats
+                document.getElementById('followers').textContent = followers.toLocaleString();
+                document.getElementById('currentFollowers').textContent = followers.toLocaleString();
                 document.getElementById('posts').textContent = data.profile.postsCount;
                 document.getElementById('avgLikes').textContent = data.stats.avgLikes;
                 document.getElementById('engagement').textContent = data.stats.engagementRate + '%';
+                document.getElementById('avgCommentsInsight').textContent = data.stats.avgComments;
                 
-                // Milestone progress
-                const followers = data.profile.followers;
+                // Milestone
                 const nextMilestone = Math.ceil(followers / 100) * 100;
                 const toGo = nextMilestone - followers;
-                document.querySelector('.milestone .target').textContent = nextMilestone.toLocaleString();
-                document.getElementById('milestoneProgress').textContent = `${toGo} to go`;
+                document.getElementById('nextMilestone').textContent = nextMilestone.toLocaleString();
+                document.getElementById('toGo').textContent = toGo;
                 
                 // Save and render follower history
                 const history = saveFollowerSnapshot(followers);
                 renderFollowerChart(history);
+                
+                // Show follower change if we have history
+                if (history.length >= 2) {
+                    const prev = history[history.length - 2].followers;
+                    const change = followers - prev;
+                    const changeEl = document.getElementById('followersChange');
+                    if (change > 0) {
+                        changeEl.textContent = `+${change} since ${formatDate(history[history.length-2].date)}`;
+                        changeEl.className = 'change up';
+                    } else if (change < 0) {
+                        changeEl.textContent = `${change} since ${formatDate(history[history.length-2].date)}`;
+                        changeEl.className = 'change down';
+                    } else {
+                        changeEl.textContent = `No change`;
+                        changeEl.className = 'change neutral';
+                    }
+                }
+                
+                // Calculate additional insights
+                calculateInsights(data.top5.concat(data.bottom5), data.chartData);
                 
                 // Update timestamp
                 const updated = new Date(data.lastUpdated);
@@ -530,7 +689,6 @@
             return div.innerHTML;
         }
         
-        // Load on page load
         refreshData();
     </script>
 </body>
