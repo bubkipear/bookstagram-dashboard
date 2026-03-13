@@ -3,74 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 @bookmarked.by.steph Dashboard</title>
+    <title>@bookmarked.by.steph</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e8e8e8;
+            background: #fafafa;
+            color: #1a1a1a;
             min-height: 100vh;
-            padding: 24px;
+            padding: 32px 24px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
         .header {
-            text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
         
         .header h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #f093fb, #f5576c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #1a1a1a;
+            margin-bottom: 4px;
         }
         
         .header .subtitle {
-            color: #888;
+            color: #666;
             font-size: 14px;
         }
         
-        #lastUpdated {
-            color: #666;
-            font-size: 12px;
-            margin-top: 4px;
+        .refresh-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
         }
         
         .refresh-btn {
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: #1a1a1a;
             border: none;
             color: white;
-            padding: 12px 24px;
-            border-radius: 24px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
-            margin-top: 16px;
-            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            transition: opacity 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
         
-        .refresh-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .refresh-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
+        .refresh-btn:hover:not(:disabled) { opacity: 0.8; }
+        .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         
         .refresh-btn .spinner {
             display: none;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border: 2px solid rgba(255,255,255,0.3);
             border-top-color: white;
             border-radius: 50%;
@@ -82,50 +73,60 @@
         
         @keyframes spin { to { transform: rotate(360deg); } }
         
+        #lastUpdated {
+            color: #999;
+            font-size: 13px;
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 16px;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
         
         .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
+            background: white;
+            border-radius: 12px;
             padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #eee;
         }
         
         .stat-card .value {
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #f093fb, #f5576c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
         }
         
         .stat-card .label {
             color: #888;
             font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             margin-top: 4px;
         }
         
+        .stat-card .sublabel {
+            color: #aaa;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        
         .section {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
+            background: white;
+            border-radius: 12px;
             padding: 24px;
             margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid #eee;
         }
         
         .section h2 {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 20px;
         }
         
         .columns {
@@ -134,25 +135,25 @@
             gap: 24px;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 700px) {
             .columns { grid-template-columns: 1fr; }
         }
         
-        .post-list { display: flex; flex-direction: column; gap: 10px; }
+        .post-list { display: flex; flex-direction: column; gap: 8px; }
         
         .post-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            transition: background 0.2s;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
             text-decoration: none;
             color: inherit;
+            transition: background 0.15s;
         }
         
-        .post-item:hover { background: rgba(255, 255, 255, 0.08); }
+        .post-item:last-child { border-bottom: none; }
+        .post-item:hover { background: #fafafa; margin: 0 -12px; padding: 12px; border-radius: 8px; }
         
         .post-item .title {
             flex: 1;
@@ -161,89 +162,122 @@
             overflow: hidden;
             text-overflow: ellipsis;
             margin-right: 12px;
+            color: #333;
         }
         
-        .post-item .date {
-            color: #666;
-            font-size: 12px;
-            margin-right: 12px;
-            min-width: 70px;
-        }
-        
-        .post-item .stats {
+        .post-item .meta {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             font-size: 13px;
+            color: #888;
         }
         
-        .post-item .likes { color: #f5576c; }
-        .post-item .comments { color: #667eea; }
+        .post-item .likes { color: #e74c3c; }
+        .post-item .comments { color: #3498db; }
         
         .chart-container {
-            height: 180px;
+            height: 160px;
             display: flex;
             align-items: flex-end;
-            gap: 3px;
-            padding: 20px 0;
+            gap: 4px;
+            padding: 16px 0;
         }
         
         .bar {
             flex: 1;
-            background: linear-gradient(180deg, #f093fb, #f5576c);
+            background: #1a1a1a;
             border-radius: 3px 3px 0 0;
-            min-width: 6px;
+            min-width: 8px;
             position: relative;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: opacity 0.15s;
         }
         
-        .bar:hover { opacity: 0.75; }
+        .bar:hover { opacity: 0.7; }
         
         .bar-tooltip {
             position: absolute;
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.9);
-            padding: 6px 10px;
+            background: #1a1a1a;
+            color: white;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.2s;
+            transition: opacity 0.15s;
             z-index: 10;
+            margin-bottom: 8px;
         }
         
         .bar:hover .bar-tooltip { opacity: 1; }
         
         .chart-label {
-            color: #666;
+            color: #aaa;
             font-size: 12px;
             text-align: center;
             margin-top: 8px;
         }
         
-        .loading-state {
-            text-align: center;
-            padding: 60px 20px;
+        .followers-history {
+            padding: 20px 0;
+        }
+        
+        .followers-history .note {
             color: #888;
+            font-size: 13px;
+            text-align: center;
+            padding: 40px 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .milestone-tracker {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 16px 0;
+        }
+        
+        .milestone {
+            text-align: center;
+        }
+        
+        .milestone .target {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .milestone .label {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .milestone .progress {
+            font-size: 13px;
+            color: #27ae60;
+            margin-top: 4px;
         }
         
         .error-state {
             text-align: center;
             padding: 40px 20px;
-            color: #f87171;
-            background: rgba(248, 113, 113, 0.1);
-            border-radius: 12px;
+            color: #e74c3c;
+            background: #fef5f5;
+            border-radius: 8px;
             margin: 20px 0;
+            border: 1px solid #fecaca;
         }
         
         .footer {
             text-align: center;
-            color: #444;
+            color: #bbb;
             font-size: 12px;
-            margin-top: 32px;
+            margin-top: 40px;
         }
         
         .hidden { display: none !important; }
@@ -252,13 +286,15 @@
 <body>
     <div class="header">
         <h1>📚 @bookmarked.by.steph</h1>
-        <p class="subtitle">Bookstagram Analytics Dashboard</p>
-        <p id="lastUpdated">Loading...</p>
-        <button class="refresh-btn" onclick="refreshData()">
-            <span class="icon">↻</span>
-            <span class="spinner"></span>
-            Refresh Data
-        </button>
+        <p class="subtitle">Bookstagram Analytics</p>
+        <div class="refresh-row">
+            <button class="refresh-btn" onclick="refreshData()">
+                <span class="icon">↻</span>
+                <span class="spinner"></span>
+                Refresh
+            </button>
+            <span id="lastUpdated">Loading...</span>
+        </div>
     </div>
     
     <div id="errorState" class="error-state hidden"></div>
@@ -266,57 +302,131 @@
     <div id="dashboard">
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="value" id="followers">-</div>
+                <div class="value" id="followers">—</div>
                 <div class="label">Followers</div>
             </div>
             <div class="stat-card">
-                <div class="value" id="posts">-</div>
+                <div class="value" id="posts">—</div>
                 <div class="label">Posts</div>
             </div>
             <div class="stat-card">
-                <div class="value" id="avgLikes">-</div>
+                <div class="value" id="avgLikes">—</div>
                 <div class="label">Avg Likes</div>
             </div>
             <div class="stat-card">
-                <div class="value" id="avgComments">-</div>
-                <div class="label">Avg Comments</div>
-            </div>
-            <div class="stat-card">
-                <div class="value" id="engagement">-</div>
+                <div class="value" id="engagement">—</div>
                 <div class="label">Engagement</div>
+                <div class="sublabel">(likes + comments) ÷ followers</div>
             </div>
         </div>
         
         <div class="section">
-            <h2>📈 Engagement Over Time</h2>
+            <h2>Follower Milestones</h2>
+            <div class="milestone-tracker">
+                <div class="milestone">
+                    <div class="target">500</div>
+                    <div class="label">Next milestone</div>
+                    <div class="progress" id="milestoneProgress">— to go</div>
+                </div>
+            </div>
+            <div class="followers-history">
+                <div class="note" id="followersNote">
+                    📈 Follower history will build up over time as you refresh.<br>
+                    <span style="font-size: 12px; color: #aaa;">Each refresh saves a snapshot for tracking.</span>
+                </div>
+                <div id="followersChart" class="chart-container hidden"></div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Post Performance</h2>
             <div class="chart-container" id="chart"></div>
-            <p class="chart-label">← Oldest | Newest →</p>
+            <p class="chart-label">← Oldest posts | Newest posts →</p>
         </div>
         
         <div class="columns">
             <div class="section">
-                <h2>🏆 Top 5 Posts</h2>
+                <h2>Top Performers</h2>
                 <div class="post-list" id="top5"></div>
             </div>
             
             <div class="section">
-                <h2>📉 Posts to Learn From</h2>
+                <h2>Lower Performers</h2>
                 <div class="post-list" id="bottom5"></div>
             </div>
         </div>
         
         <div class="section">
-            <h2>📅 This Week</h2>
+            <h2>This Week</h2>
             <div class="post-list" id="thisWeek"></div>
-            <p id="noPostsThisWeek" class="hidden" style="color: #666; text-align: center; padding: 20px;">No posts this week yet</p>
+            <p id="noPostsThisWeek" class="hidden" style="color: #888; text-align: center; padding: 20px;">No posts this week</p>
         </div>
     </div>
     
     <div class="footer">
-        <p>Dashboard by Molt 🦋 • Literary Agent Services</p>
+        <p>Built by Molt 🦋</p>
     </div>
 
     <script>
+        // Simple local storage for follower history
+        const STORAGE_KEY = 'bookstagram_follower_history';
+        
+        function getFollowerHistory() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            } catch {
+                return [];
+            }
+        }
+        
+        function saveFollowerSnapshot(followers) {
+            const history = getFollowerHistory();
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Only save one snapshot per day
+            const existingToday = history.find(h => h.date === today);
+            if (existingToday) {
+                existingToday.followers = followers;
+            } else {
+                history.push({ date: today, followers });
+            }
+            
+            // Keep last 90 days
+            const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            const filtered = history.filter(h => h.date >= cutoff);
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+            return filtered;
+        }
+        
+        function renderFollowerChart(history) {
+            if (history.length < 2) return;
+            
+            const container = document.getElementById('followersChart');
+            const note = document.getElementById('followersNote');
+            
+            note.classList.add('hidden');
+            container.classList.remove('hidden');
+            
+            const maxFollowers = Math.max(...history.map(h => h.followers));
+            const minFollowers = Math.min(...history.map(h => h.followers));
+            const range = maxFollowers - minFollowers || 1;
+            
+            container.innerHTML = history.map((h, i) => {
+                const height = ((h.followers - minFollowers) / range * 80) + 20;
+                const change = i > 0 ? h.followers - history[i-1].followers : 0;
+                const changeStr = change > 0 ? `+${change}` : change.toString();
+                return `
+                    <div class="bar" style="height: ${height}%">
+                        <div class="bar-tooltip">
+                            <strong>${h.followers} followers</strong><br>
+                            ${h.date}${i > 0 ? `<br>${changeStr} from prev` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
         async function refreshData() {
             const btn = document.querySelector('.refresh-btn');
             const errorState = document.getElementById('errorState');
@@ -337,18 +447,26 @@
                 document.getElementById('followers').textContent = data.profile.followers.toLocaleString();
                 document.getElementById('posts').textContent = data.profile.postsCount;
                 document.getElementById('avgLikes').textContent = data.stats.avgLikes;
-                document.getElementById('avgComments').textContent = data.stats.avgComments;
                 document.getElementById('engagement').textContent = data.stats.engagementRate + '%';
+                
+                // Milestone progress
+                const followers = data.profile.followers;
+                const nextMilestone = Math.ceil(followers / 100) * 100;
+                const toGo = nextMilestone - followers;
+                document.querySelector('.milestone .target').textContent = nextMilestone.toLocaleString();
+                document.getElementById('milestoneProgress').textContent = `${toGo} to go`;
+                
+                // Save and render follower history
+                const history = saveFollowerSnapshot(followers);
+                renderFollowerChart(history);
                 
                 // Update timestamp
                 const updated = new Date(data.lastUpdated);
                 document.getElementById('lastUpdated').textContent = 
-                    `Last updated: ${updated.toLocaleDateString()} ${updated.toLocaleTimeString()}`;
+                    `Updated ${updated.toLocaleDateString()} ${updated.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
                 
-                // Render chart
+                // Render charts and lists
                 renderChart(data.chartData);
-                
-                // Render post lists
                 renderPostList('top5', data.top5);
                 renderPostList('bottom5', data.bottom5);
                 
@@ -377,11 +495,11 @@
             container.innerHTML = chartData.map(d => {
                 const height = (d.likes / maxLikes * 100);
                 return `
-                    <div class="bar" style="height: ${Math.max(height, 2)}%">
+                    <div class="bar" style="height: ${Math.max(height, 3)}%">
                         <div class="bar-tooltip">
                             <strong>${d.title}</strong><br>
-                            ${d.date}<br>
-                            ❤️ ${d.likes} 💬 ${d.comments}
+                            ${formatDate(d.date)}<br>
+                            ❤️ ${d.likes} · 💬 ${d.comments}
                         </div>
                     </div>
                 `;
@@ -393,8 +511,7 @@
             container.innerHTML = posts.map(p => `
                 <a href="${p.permalink}" target="_blank" class="post-item">
                     <span class="title">${escapeHtml(p.title)}</span>
-                    <span class="date">${formatDate(p.date)}</span>
-                    <span class="stats">
+                    <span class="meta">
                         <span class="likes">❤️ ${p.likes}</span>
                         <span class="comments">💬 ${p.comments}</span>
                     </span>
@@ -413,7 +530,7 @@
             return div.innerHTML;
         }
         
-        // Load data on page load
+        // Load on page load
         refreshData();
     </script>
 </body>

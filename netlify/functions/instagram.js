@@ -46,7 +46,9 @@ exports.handler = async (event, context) => {
     const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const thisWeekPosts = posts.filter(p => new Date(p.timestamp) > oneWeekAgo);
     
-    // Engagement rate
+    // Engagement rate explanation:
+    // (avg likes + avg comments) / followers * 100
+    // This shows what % of followers engage with a typical post
     const engagementRate = profile.followers_count 
       ? ((avgLikes + avgComments) / profile.followers_count * 100).toFixed(1)
       : 0;
@@ -78,6 +80,7 @@ exports.handler = async (event, context) => {
           avgLikes,
           avgComments,
           engagementRate,
+          engagementExplainer: '(avg likes + comments) ÷ followers',
           totalPosts: posts.length
         },
         top5: top5.map(p => ({
