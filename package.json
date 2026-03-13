@@ -1,0 +1,9 @@
+{
+  "name": "bookstagram-dashboard",
+  "version": "1.0.0",
+  "description": "Instagram analytics dashboard for @bookmarked.by.steph",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}

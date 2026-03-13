@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 @bookmarked.by.steph Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            padding: 24px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        #lastUpdated {
+            color: #666;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 16px;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .refresh-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .refresh-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .refresh-btn .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        .refresh-btn.loading .spinner { display: block; }
+        .refresh-btn.loading .icon { display: none; }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-card .label {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .columns { grid-template-columns: 1fr; }
+        }
+        
+        .post-list { display: flex; flex-direction: column; gap: 10px; }
+        
+        .post-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .post-item:hover { background: rgba(255, 255, 255, 0.08); }
+        
+        .post-item .title {
+            flex: 1;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 12px;
+        }
+        
+        .post-item .date {
+            color: #666;
+            font-size: 12px;
+            margin-right: 12px;
+            min-width: 70px;
+        }
+        
+        .post-item .stats {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+        }
+        
+        .post-item .likes { color: #f5576c; }
+        .post-item .comments { color: #667eea; }
+        
+        .chart-container {
+            height: 180px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            padding: 20px 0;
+        }
+        
+        .bar {
+            flex: 1;
+            background: linear-gradient(180deg, #f093fb, #f5576c);
+            border-radius: 3px 3px 0 0;
+            min-width: 6px;
+            position: relative;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .bar:hover { opacity: 0.75; }
+        
+        .bar-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+        
+        .bar:hover .bar-tooltip { opacity: 1; }
+        
+        .chart-label {
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 8px;
+        }
+        
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+        
+        .error-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #444;
+            font-size: 12px;
+            margin-top: 32px;
+        }
+        
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 @bookmarked.by.steph</h1>
+        <p class="subtitle">Bookstagram Analytics Dashboard</p>
+        <p id="lastUpdated">Loading...</p>
+        <button class="refresh-btn" onclick="refreshData()">
+            <span class="icon">↻</span>
+            <span class="spinner"></span>
+            Refresh Data
+        </button>
+    </div>
+    
+    <div id="errorState" class="error-state hidden"></div>
+    
+    <div id="dashboard">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="value" id="followers">-</div>
+                <div class="label">Followers</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="posts">-</div>
+                <div class="label">Posts</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="avgLikes">-</div>
+                <div class="label">Avg Likes</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="avgComments">-</div>
+                <div class="label">Avg Comments</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="engagement">-</div>
+                <div class="label">Engagement</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📈 Engagement Over Time</h2>
+            <div class="chart-container" id="chart"></div>
+            <p class="chart-label">← Oldest | Newest →</p>
+        </div>
+        
+        <div class="columns">
+            <div class="section">
+                <h2>🏆 Top 5 Posts</h2>
+                <div class="post-list" id="top5"></div>
+            </div>
+            
+            <div class="section">
+                <h2>📉 Posts to Learn From</h2>
+                <div class="post-list" id="bottom5"></div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📅 This Week</h2>
+            <div class="post-list" id="thisWeek"></div>
+            <p id="noPostsThisWeek" class="hidden" style="color: #666; text-align: center; padding: 20px;">No posts this week yet</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Dashboard by Molt 🦋 • Literary Agent Services</p>
+    </div>
+
+    <script>
+        async function refreshData() {
+            const btn = document.querySelector('.refresh-btn');
+            const errorState = document.getElementById('errorState');
+            
+            btn.classList.add('loading');
+            btn.disabled = true;
+            errorState.classList.add('hidden');
+            
+            try {
+                const res = await fetch('/api/instagram');
+                const data = await res.json();
+                
+                if (data.error) {
+                    throw new Error(data.error + (data.details ? ': ' + JSON.stringify(data.details) : ''));
+                }
+                
+                // Update stats
+                document.getElementById('followers').textContent = data.profile.followers.toLocaleString();
+                document.getElementById('posts').textContent = data.profile.postsCount;
+                document.getElementById('avgLikes').textContent = data.stats.avgLikes;
+                document.getElementById('avgComments').textContent = data.stats.avgComments;
+                document.getElementById('engagement').textContent = data.stats.engagementRate + '%';
+                
+                // Update timestamp
+                const updated = new Date(data.lastUpdated);
+                document.getElementById('lastUpdated').textContent = 
+                    `Last updated: ${updated.toLocaleDateString()} ${updated.toLocaleTimeString()}`;
+                
+                // Render chart
+                renderChart(data.chartData);
+                
+                // Render post lists
+                renderPostList('top5', data.top5);
+                renderPostList('bottom5', data.bottom5);
+                
+                if (data.thisWeek.length > 0) {
+                    renderPostList('thisWeek', data.thisWeek);
+                    document.getElementById('thisWeek').classList.remove('hidden');
+                    document.getElementById('noPostsThisWeek').classList.add('hidden');
+                } else {
+                    document.getElementById('thisWeek').classList.add('hidden');
+                    document.getElementById('noPostsThisWeek').classList.remove('hidden');
+                }
+                
+            } catch (err) {
+                errorState.textContent = '⚠️ ' + err.message;
+                errorState.classList.remove('hidden');
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+        
+        function renderChart(chartData) {
+            const container = document.getElementById('chart');
+            const maxLikes = Math.max(...chartData.map(d => d.likes), 1);
+            
+            container.innerHTML = chartData.map(d => {
+                const height = (d.likes / maxLikes * 100);
+                return `
+                    <div class="bar" style="height: ${Math.max(height, 2)}%">
+                        <div class="bar-tooltip">
+                            <strong>${d.title}</strong><br>
+                            ${d.date}<br>
+                            ❤️ ${d.likes} 💬 ${d.comments}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function renderPostList(containerId, posts) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = posts.map(p => `
+                <a href="${p.permalink}" target="_blank" class="post-item">
+                    <span class="title">${escapeHtml(p.title)}</span>
+                    <span class="date">${formatDate(p.date)}</span>
+                    <span class="stats">
+                        <span class="likes">❤️ ${p.likes}</span>
+                        <span class="comments">💬 ${p.comments}</span>
+                    </span>
+                </a>
+            `).join('');
+        }
+        
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Load data on page load
+        refreshData();
+    </script>
+</body>
+</html>
