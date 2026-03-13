@@ -13,334 +13,97 @@
             color: #e5e5e5;
             min-height: 100vh;
             padding: 32px 24px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
-        .header {
-            margin-bottom: 40px;
-        }
+        .header { margin-bottom: 32px; }
+        .header h1 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+        .header .subtitle { color: #666; font-size: 14px; }
         
-        .header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-        
-        .header .subtitle {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .refresh-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 16px;
-        }
+        .refresh-row { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
         
         .refresh-btn {
-            background: #fff;
-            border: none;
-            color: #0d0d0d;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: opacity 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: #fff; border: none; color: #0d0d0d;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer;
+            font-size: 14px; font-weight: 500; transition: opacity 0.2s;
+            display: inline-flex; align-items: center; gap: 8px;
         }
-        
         .refresh-btn:hover:not(:disabled) { opacity: 0.85; }
         .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        .refresh-btn .spinner {
-            display: none;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(0,0,0,0.2);
-            border-top-color: #0d0d0d;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        
+        .refresh-btn .spinner { display: none; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.2); border-top-color: #0d0d0d; border-radius: 50%; animation: spin 0.8s linear infinite; }
         .refresh-btn.loading .spinner { display: block; }
         .refresh-btn.loading .icon { display: none; }
-        
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        #lastUpdated {
-            color: #555;
-            font-size: 13px;
-        }
+        #lastUpdated { color: #555; font-size: 13px; }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-        
-        .stat-card {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid #262626;
-        }
-        
-        .stat-card .value {
-            font-size: 28px;
-            font-weight: 600;
-            color: #fff;
-        }
-        
-        .stat-card .label {
-            color: #666;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 4px;
-        }
-        
-        .stat-card .sublabel {
-            color: #444;
-            font-size: 11px;
-            margin-top: 2px;
-        }
-        
-        .stat-card .change {
-            font-size: 12px;
-            margin-top: 6px;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .stat-card { background: #1a1a1a; border-radius: 12px; padding: 16px; border: 1px solid #262626; }
+        .stat-card .value { font-size: 24px; font-weight: 600; color: #fff; }
+        .stat-card .label { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+        .stat-card .sublabel { color: #444; font-size: 10px; margin-top: 2px; }
+        .stat-card .change { font-size: 11px; margin-top: 4px; }
         .stat-card .change.up { color: #22c55e; }
         .stat-card .change.down { color: #ef4444; }
-        .stat-card .change.neutral { color: #666; }
         
-        .section {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid #262626;
-        }
+        .section { background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #262626; }
+        .section h2 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 16px; }
         
-        .section h2 {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        @media (max-width: 700px) {
-            .columns { grid-template-columns: 1fr; }
-        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
         
         .post-list { display: flex; flex-direction: column; gap: 4px; }
-        
-        .post-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: inherit;
-            transition: background 0.15s;
-        }
-        
+        .post-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 8px; text-decoration: none; color: inherit; transition: background 0.15s; }
         .post-item:hover { background: #262626; }
-        
-        .post-item .title {
-            flex: 1;
-            font-size: 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-right: 12px;
-            color: #ccc;
-        }
-        
-        .post-item .meta {
-            display: flex;
-            gap: 12px;
-            font-size: 13px;
-            color: #666;
-        }
-        
+        .post-item .title { flex: 1; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 12px; color: #ccc; }
+        .post-item .meta { display: flex; gap: 10px; font-size: 12px; color: #666; }
         .post-item .likes { color: #ef4444; }
-        .post-item .comments { color: #3b82f6; }
+        .post-item .saved { color: #a855f7; }
+        .post-item .shares { color: #22c55e; }
         
-        .chart-container {
-            height: 140px;
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            padding: 16px 0;
-        }
-        
-        .bar {
-            flex: 1;
-            background: #fff;
-            border-radius: 2px 2px 0 0;
-            min-width: 6px;
-            position: relative;
-            cursor: pointer;
-            transition: opacity 0.15s;
-        }
-        
+        .chart-container { height: 120px; display: flex; align-items: flex-end; gap: 2px; padding: 12px 0; }
+        .bar { flex: 1; background: #fff; border-radius: 2px 2px 0 0; min-width: 4px; cursor: pointer; transition: opacity 0.15s; position: relative; }
         .bar:hover { opacity: 0.7; }
-        
-        .bar-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.15s;
-            z-index: 10;
-            margin-bottom: 8px;
-            border: 1px solid #444;
-        }
-        
+        .bar-tooltip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 8px 12px; border-radius: 6px; font-size: 11px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s; z-index: 10; margin-bottom: 8px; border: 1px solid #444; }
         .bar:hover .bar-tooltip { opacity: 1; }
+        .chart-label { color: #444; font-size: 11px; text-align: center; margin-top: 6px; }
         
-        .chart-label {
-            color: #444;
-            font-size: 12px;
-            text-align: center;
-            margin-top: 8px;
-        }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+        .insight-card { background: #141414; border-radius: 8px; padding: 14px; }
+        .insight-card .label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .insight-card .value { font-size: 16px; font-weight: 500; color: #fff; }
+        .insight-card .detail { font-size: 11px; color: #555; margin-top: 2px; }
         
-        .followers-chart-container {
-            height: 100px;
-            display: flex;
-            align-items: flex-end;
-            gap: 4px;
-            padding: 16px 0;
-        }
+        .demo-bars { display: flex; gap: 4px; margin-top: 12px; }
+        .demo-bar { height: 8px; border-radius: 4px; }
+        .demo-bar.female { background: #ec4899; }
+        .demo-bar.male { background: #3b82f6; }
         
-        .followers-chart-container .bar {
-            background: #22c55e;
-        }
+        .city-list { margin-top: 8px; }
+        .city-item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; border-bottom: 1px solid #1a1a1a; }
+        .city-item:last-child { border: none; }
+        .city-item .name { color: #999; }
+        .city-item .count { color: #fff; }
         
-        .followers-history .note {
-            color: #555;
-            font-size: 13px;
-            text-align: center;
-            padding: 30px 20px;
-            background: #141414;
-            border-radius: 8px;
-        }
+        .hashtag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .hashtag { background: #262626; padding: 4px 10px; border-radius: 12px; font-size: 11px; color: #888; }
+        .hashtag .avg { color: #fff; margin-left: 4px; }
         
-        .milestone-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 0;
-            border-bottom: 1px solid #262626;
-            margin-bottom: 16px;
-        }
+        .milestone-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #262626; margin-bottom: 12px; }
+        .milestone-info { display: flex; align-items: baseline; gap: 8px; }
+        .milestone-info .current { font-size: 28px; font-weight: 600; color: #fff; }
+        .milestone-info .target { font-size: 14px; color: #555; }
+        .milestone-progress .togo { font-size: 18px; font-weight: 500; color: #22c55e; }
+        .milestone-progress .label { font-size: 11px; color: #555; }
         
-        .milestone-info {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
+        .followers-chart { height: 80px; display: flex; align-items: flex-end; gap: 4px; }
+        .followers-chart .bar { background: #22c55e; }
+        .followers-note { color: #444; font-size: 12px; text-align: center; padding: 20px; background: #141414; border-radius: 8px; }
         
-        .milestone-info .current {
-            font-size: 32px;
-            font-weight: 600;
-            color: #fff;
-        }
-        
-        .milestone-info .target {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .milestone-progress {
-            text-align: right;
-        }
-        
-        .milestone-progress .togo {
-            font-size: 20px;
-            font-weight: 500;
-            color: #22c55e;
-        }
-        
-        .milestone-progress .label {
-            font-size: 12px;
-            color: #555;
-        }
-        
-        .insights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        
-        .insight-card {
-            background: #141414;
-            border-radius: 8px;
-            padding: 16px;
-        }
-        
-        .insight-card .label {
-            font-size: 11px;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        
-        .insight-card .value {
-            font-size: 18px;
-            font-weight: 500;
-            color: #fff;
-        }
-        
-        .insight-card .detail {
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
-        }
-        
-        .error-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #ef4444;
-            background: #1f1515;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #3f2020;
-        }
-        
-        .footer {
-            text-align: center;
-            color: #333;
-            font-size: 12px;
-            margin-top: 40px;
-        }
-        
+        .error-state { text-align: center; padding: 40px 20px; color: #ef4444; background: #1f1515; border-radius: 8px; margin: 20px 0; border: 1px solid #3f2020; }
+        .footer { text-align: center; color: #333; font-size: 11px; margin-top: 32px; }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -350,9 +113,7 @@
         <p class="subtitle">Bookstagram Analytics</p>
         <div class="refresh-row">
             <button class="refresh-btn" onclick="refreshData()">
-                <span class="icon">↻</span>
-                <span class="spinner"></span>
-                Refresh
+                <span class="icon">↻</span><span class="spinner"></span>Refresh
             </button>
             <span id="lastUpdated">Loading...</span>
         </div>
@@ -365,208 +126,180 @@
             <div class="stat-card">
                 <div class="value" id="followers">—</div>
                 <div class="label">Followers</div>
-                <div class="change neutral" id="followersChange"></div>
+                <div class="change" id="followersChange"></div>
             </div>
             <div class="stat-card">
-                <div class="value" id="posts">—</div>
-                <div class="label">Posts</div>
+                <div class="value" id="reach28">—</div>
+                <div class="label">28-Day Reach</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="engagement">—%</div>
+                <div class="label">Engagement</div>
             </div>
             <div class="stat-card">
                 <div class="value" id="avgLikes">—</div>
                 <div class="label">Avg Likes</div>
             </div>
             <div class="stat-card">
-                <div class="value" id="engagement">—</div>
-                <div class="label">Engagement</div>
-                <div class="sublabel">(likes + comments) ÷ followers</div>
+                <div class="value" id="avgSaved">—</div>
+                <div class="label">Avg Saves</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="avgShares">—</div>
+                <div class="label">Avg Shares</div>
+            </div>
+        </div>
+        
+        <div class="grid-2">
+            <div class="section">
+                <h2>📈 Follower Growth</h2>
+                <div class="milestone-row">
+                    <div class="milestone-info">
+                        <span class="current" id="currentFollowers">—</span>
+                        <span class="target">/ <span id="nextMilestone">500</span></span>
+                    </div>
+                    <div class="milestone-progress">
+                        <div class="togo" id="toGo">—</div>
+                        <div class="label">to milestone</div>
+                    </div>
+                </div>
+                <div id="followersNote" class="followers-note">📊 History builds each refresh</div>
+                <div id="followersChart" class="followers-chart hidden"></div>
+                <div class="chart-label" id="growthRate"></div>
+            </div>
+            
+            <div class="section">
+                <h2>👥 Audience Demographics</h2>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="color: #ec4899; font-size: 13px;">♀ <span id="femaleCount">—</span></span>
+                    <span style="color: #3b82f6; font-size: 13px;">♂ <span id="maleCount">—</span></span>
+                </div>
+                <div class="demo-bars">
+                    <div class="demo-bar female" id="femaleBar" style="width: 50%"></div>
+                    <div class="demo-bar male" id="maleBar" style="width: 50%"></div>
+                </div>
+                <div style="font-size: 11px; color: #555; margin-top: 12px;">TOP AGE: <span id="topAge" style="color: #fff;">—</span></div>
+                <h3 style="font-size: 11px; color: #555; margin-top: 16px; margin-bottom: 4px;">TOP CITIES</h3>
+                <div class="city-list" id="cityList"></div>
             </div>
         </div>
         
         <div class="section">
-            <h2>Follower Growth</h2>
-            <div class="milestone-row">
-                <div class="milestone-info">
-                    <span class="current" id="currentFollowers">—</span>
-                    <span class="target">/ <span id="nextMilestone">500</span></span>
-                </div>
-                <div class="milestone-progress">
-                    <div class="togo" id="toGo">—</div>
-                    <div class="label">to next milestone</div>
-                </div>
-            </div>
-            <div class="followers-history">
-                <div class="note" id="followersNote">
-                    📈 Follower history builds up over time.<br>
-                    <span style="color: #444;">Each refresh saves a snapshot.</span>
-                </div>
-                <div id="followersChart" class="followers-chart-container hidden"></div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Additional Insights</h2>
-            <div class="insights-grid">
+            <h2>⏰ Best Posting Times</h2>
+            <div class="insight-grid">
                 <div class="insight-card">
-                    <div class="label">Posting Frequency</div>
-                    <div class="value" id="postFrequency">—</div>
-                    <div class="detail" id="postFrequencyDetail">posts per week</div>
-                </div>
-                <div class="insight-card">
-                    <div class="label">Best Performing Day</div>
+                    <div class="label">Best Day</div>
                     <div class="value" id="bestDay">—</div>
-                    <div class="detail" id="bestDayDetail">avg likes</div>
+                    <div class="detail" id="bestDayAvg">— avg likes</div>
                 </div>
                 <div class="insight-card">
-                    <div class="label">Content Type</div>
-                    <div class="value" id="contentType">—</div>
-                    <div class="detail" id="contentTypeDetail">most used</div>
+                    <div class="label">Best Hour (UTC)</div>
+                    <div class="value" id="bestHour">—</div>
+                    <div class="detail" id="bestHourAvg">— avg likes</div>
                 </div>
                 <div class="insight-card">
-                    <div class="label">Avg Comments</div>
-                    <div class="value" id="avgCommentsInsight">—</div>
+                    <div class="label">Post Frequency</div>
+                    <div class="value" id="postFreq">—</div>
+                    <div class="detail">posts/week</div>
+                </div>
+                <div class="insight-card">
+                    <div class="label">Avg Reach</div>
+                    <div class="value" id="avgReach">—</div>
                     <div class="detail">per post</div>
                 </div>
             </div>
         </div>
         
         <div class="section">
-            <h2>Post Performance</h2>
-            <div class="chart-container" id="chart"></div>
-            <p class="chart-label">← Oldest posts | Newest posts →</p>
+            <h2>🏷️ Hashtag Performance</h2>
+            <div class="hashtag-list" id="hashtagList">
+                <span style="color: #555; font-size: 12px;">Loading...</span>
+            </div>
         </div>
         
-        <div class="columns">
+        <div class="section">
+            <h2>📊 Content Type Breakdown</h2>
+            <div class="insight-grid" id="contentTypes"></div>
+        </div>
+        
+        <div class="section">
+            <h2>📈 Post Performance</h2>
+            <div class="chart-container" id="chart"></div>
+            <p class="chart-label">← Oldest | Newest → (hover for details)</p>
+        </div>
+        
+        <div class="grid-2">
             <div class="section">
-                <h2>Top Performers</h2>
+                <h2>🏆 Top Performers</h2>
                 <div class="post-list" id="top5"></div>
             </div>
-            
             <div class="section">
-                <h2>Room to Grow</h2>
+                <h2>📉 Room to Grow</h2>
                 <div class="post-list" id="bottom5"></div>
             </div>
         </div>
         
         <div class="section">
-            <h2>This Week</h2>
+            <h2>📅 This Week</h2>
             <div class="post-list" id="thisWeek"></div>
-            <p id="noPostsThisWeek" class="hidden" style="color: #555; text-align: center; padding: 20px;">No posts this week</p>
+            <p id="noPostsThisWeek" class="hidden" style="color: #555; text-align: center; padding: 16px;">No posts this week</p>
         </div>
     </div>
     
-    <div class="footer">
-        <p>Built by Molt 🦋</p>
-    </div>
+    <div class="footer">Built by Molt 🦋</div>
 
     <script>
         const STORAGE_KEY = 'bookstagram_follower_history';
         
         function getFollowerHistory() {
-            try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            } catch {
-                return [];
-            }
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
         }
         
         function saveFollowerSnapshot(followers) {
             const history = getFollowerHistory();
             const today = new Date().toISOString().split('T')[0];
-            
-            const existingToday = history.find(h => h.date === today);
-            if (existingToday) {
-                existingToday.followers = followers;
-            } else {
-                history.push({ date: today, followers });
-            }
-            
-            // Keep last 90 days
+            const existing = history.find(h => h.date === today);
+            if (existing) existing.followers = followers;
+            else history.push({ date: today, followers });
             const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
             const filtered = history.filter(h => h.date >= cutoff);
-            
             localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
             return filtered;
         }
         
         function renderFollowerChart(history) {
-            if (history.length < 2) return;
-            
             const container = document.getElementById('followersChart');
             const note = document.getElementById('followersNote');
+            const rateEl = document.getElementById('growthRate');
+            
+            if (history.length < 2) return;
             
             note.classList.add('hidden');
             container.classList.remove('hidden');
             
-            const maxFollowers = Math.max(...history.map(h => h.followers));
-            const minFollowers = Math.min(...history.map(h => h.followers));
-            const range = maxFollowers - minFollowers || 1;
+            // Calculate growth rate
+            if (history.length >= 7) {
+                const weekAgo = history[Math.max(0, history.length - 7)].followers;
+                const now = history[history.length - 1].followers;
+                const growth = now - weekAgo;
+                rateEl.textContent = `${growth >= 0 ? '+' : ''}${growth} followers this week`;
+                rateEl.style.color = growth >= 0 ? '#22c55e' : '#ef4444';
+            }
+            
+            const max = Math.max(...history.map(h => h.followers));
+            const min = Math.min(...history.map(h => h.followers));
+            const range = max - min || 1;
             
             container.innerHTML = history.map((h, i) => {
-                const height = ((h.followers - minFollowers) / range * 70) + 30;
+                const height = ((h.followers - min) / range * 70) + 30;
                 const change = i > 0 ? h.followers - history[i-1].followers : 0;
-                const changeStr = change > 0 ? `+${change}` : change.toString();
-                return `
-                    <div class="bar" style="height: ${height}%">
-                        <div class="bar-tooltip">
-                            <strong>${h.followers} followers</strong><br>
-                            ${formatDate(h.date)}${i > 0 ? `<br>${changeStr} change` : ''}
-                        </div>
-                    </div>
-                `;
+                return `<div class="bar" style="height:${height}%"><div class="bar-tooltip"><strong>${h.followers}</strong><br>${formatDate(h.date)}${i > 0 ? `<br>${change >= 0 ? '+' : ''}${change}` : ''}</div></div>`;
             }).join('');
-        }
-        
-        function calculateInsights(posts, chartData) {
-            // Posting frequency (posts per week based on date range)
-            if (chartData.length >= 2) {
-                const firstDate = new Date(chartData[0].date);
-                const lastDate = new Date(chartData[chartData.length - 1].date);
-                const weeks = Math.max(1, (lastDate - firstDate) / (7 * 24 * 60 * 60 * 1000));
-                const postsPerWeek = (chartData.length / weeks).toFixed(1);
-                document.getElementById('postFrequency').textContent = postsPerWeek;
-            }
-            
-            // Best performing day
-            const dayStats = {};
-            chartData.forEach(p => {
-                const day = new Date(p.date).toLocaleDateString('en-US', { weekday: 'long' });
-                if (!dayStats[day]) dayStats[day] = { total: 0, count: 0 };
-                dayStats[day].total += p.likes;
-                dayStats[day].count++;
-            });
-            
-            let bestDay = null;
-            let bestAvg = 0;
-            for (const [day, stats] of Object.entries(dayStats)) {
-                const avg = stats.total / stats.count;
-                if (avg > bestAvg) {
-                    bestAvg = avg;
-                    bestDay = day;
-                }
-            }
-            if (bestDay) {
-                document.getElementById('bestDay').textContent = bestDay;
-                document.getElementById('bestDayDetail').textContent = `${Math.round(bestAvg)} avg likes`;
-            }
-            
-            // Content type (from API data if available)
-            const types = {};
-            posts.forEach(p => {
-                const type = p.media_type || 'IMAGE';
-                types[type] = (types[type] || 0) + 1;
-            });
-            const topType = Object.entries(types).sort((a, b) => b[1] - a[1])[0];
-            if (topType) {
-                const typeNames = { 'CAROUSEL_ALBUM': 'Carousels', 'IMAGE': 'Images', 'VIDEO': 'Videos' };
-                document.getElementById('contentType').textContent = typeNames[topType[0]] || topType[0];
-                document.getElementById('contentTypeDetail').textContent = `${topType[1]} posts (${Math.round(topType[1]/posts.length*100)}%)`;
-            }
         }
         
         async function refreshData() {
             const btn = document.querySelector('.refresh-btn');
             const errorState = document.getElementById('errorState');
-            
             btn.classList.add('loading');
             btn.disabled = true;
             errorState.classList.add('hidden');
@@ -574,57 +307,82 @@
             try {
                 const res = await fetch('/.netlify/functions/instagram');
                 const data = await res.json();
+                if (data.error) throw new Error(data.error);
                 
-                if (data.error) {
-                    throw new Error(data.error + (data.details ? ': ' + JSON.stringify(data.details) : ''));
-                }
+                const f = data.profile.followers;
                 
-                const followers = data.profile.followers;
-                
-                // Update main stats
-                document.getElementById('followers').textContent = followers.toLocaleString();
-                document.getElementById('currentFollowers').textContent = followers.toLocaleString();
-                document.getElementById('posts').textContent = data.profile.postsCount;
-                document.getElementById('avgLikes').textContent = data.stats.avgLikes;
+                // Main stats
+                document.getElementById('followers').textContent = f.toLocaleString();
+                document.getElementById('currentFollowers').textContent = f.toLocaleString();
+                document.getElementById('reach28').textContent = data.stats.reach28?.toLocaleString() || '—';
                 document.getElementById('engagement').textContent = data.stats.engagementRate + '%';
-                document.getElementById('avgCommentsInsight').textContent = data.stats.avgComments;
+                document.getElementById('avgLikes').textContent = data.stats.avgLikes;
+                document.getElementById('avgSaved').textContent = data.stats.avgSaved;
+                document.getElementById('avgShares').textContent = data.stats.avgShares;
+                document.getElementById('avgReach').textContent = data.stats.avgReach?.toLocaleString() || '—';
                 
                 // Milestone
-                const nextMilestone = Math.ceil(followers / 100) * 100;
-                const toGo = nextMilestone - followers;
-                document.getElementById('nextMilestone').textContent = nextMilestone.toLocaleString();
-                document.getElementById('toGo').textContent = toGo;
+                const next = Math.ceil(f / 100) * 100;
+                document.getElementById('nextMilestone').textContent = next;
+                document.getElementById('toGo').textContent = next - f;
                 
-                // Save and render follower history
-                const history = saveFollowerSnapshot(followers);
+                // Follower history
+                const history = saveFollowerSnapshot(f);
                 renderFollowerChart(history);
-                
-                // Show follower change if we have history
                 if (history.length >= 2) {
-                    const prev = history[history.length - 2].followers;
-                    const change = followers - prev;
-                    const changeEl = document.getElementById('followersChange');
-                    if (change > 0) {
-                        changeEl.textContent = `+${change} since ${formatDate(history[history.length-2].date)}`;
-                        changeEl.className = 'change up';
-                    } else if (change < 0) {
-                        changeEl.textContent = `${change} since ${formatDate(history[history.length-2].date)}`;
-                        changeEl.className = 'change down';
-                    } else {
-                        changeEl.textContent = `No change`;
-                        changeEl.className = 'change neutral';
-                    }
+                    const prev = history[history.length - 2];
+                    const change = f - prev.followers;
+                    const el = document.getElementById('followersChange');
+                    el.textContent = `${change >= 0 ? '+' : ''}${change} since ${formatDate(prev.date)}`;
+                    el.className = 'change ' + (change >= 0 ? 'up' : 'down');
                 }
                 
-                // Calculate additional insights
-                calculateInsights(data.top5.concat(data.bottom5), data.chartData);
+                // Demographics
+                const demo = data.insights.demographics;
+                const total = demo.female + demo.male;
+                document.getElementById('femaleCount').textContent = demo.female;
+                document.getElementById('maleCount').textContent = demo.male;
+                document.getElementById('femaleBar').style.width = (demo.female / total * 100) + '%';
+                document.getElementById('maleBar').style.width = (demo.male / total * 100) + '%';
                 
-                // Update timestamp
-                const updated = new Date(data.lastUpdated);
-                document.getElementById('lastUpdated').textContent = 
-                    `Updated ${updated.toLocaleDateString()} ${updated.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+                const topAge = Object.entries(demo.ageGroups).sort((a,b) => b[1] - a[1])[0];
+                if (topAge) document.getElementById('topAge').textContent = topAge[0] + ` (${topAge[1]})`;
                 
-                // Render charts and lists
+                // Cities
+                document.getElementById('cityList').innerHTML = data.insights.topCities.map(c => 
+                    `<div class="city-item"><span class="name">${c.city}</span><span class="count">${c.count}</span></div>`
+                ).join('');
+                
+                // Best times
+                document.getElementById('bestDay').textContent = data.insights.bestDay || '—';
+                document.getElementById('bestDayAvg').textContent = `${data.insights.bestDayAvg || '—'} avg likes`;
+                document.getElementById('bestHour').textContent = data.insights.bestHour !== null ? `${data.insights.bestHour}:00` : '—';
+                document.getElementById('bestHourAvg').textContent = `${data.insights.bestHourAvg || '—'} avg likes`;
+                
+                // Post frequency
+                if (data.chartData.length >= 2) {
+                    const first = new Date(data.chartData[0].date);
+                    const last = new Date(data.chartData[data.chartData.length - 1].date);
+                    const weeks = Math.max(1, (last - first) / (7 * 24 * 60 * 60 * 1000));
+                    document.getElementById('postFreq').textContent = (data.chartData.length / weeks).toFixed(1);
+                }
+                
+                // Hashtags
+                document.getElementById('hashtagList').innerHTML = data.insights.topHashtags.length 
+                    ? data.insights.topHashtags.map(h => `<span class="hashtag">${h.tag}<span class="avg">${h.avgLikes}♥</span></span>`).join('')
+                    : '<span style="color: #555; font-size: 12px;">Not enough data yet</span>';
+                
+                // Content types
+                const types = data.insights.contentTypes;
+                const typeNames = { 'CAROUSEL_ALBUM': 'Carousels', 'IMAGE': 'Images', 'VIDEO': 'Videos', 'REELS': 'Reels' };
+                document.getElementById('contentTypes').innerHTML = Object.entries(types).map(([type, count]) => 
+                    `<div class="insight-card"><div class="label">${typeNames[type] || type}</div><div class="value">${count}</div><div class="detail">${Math.round(count / data.stats.totalPosts * 100)}% of posts</div></div>`
+                ).join('');
+                
+                // Timestamp
+                document.getElementById('lastUpdated').textContent = `Updated ${new Date(data.lastUpdated).toLocaleString([], {dateStyle: 'short', timeStyle: 'short'})}`;
+                
+                // Charts
                 renderChart(data.chartData);
                 renderPostList('top5', data.top5);
                 renderPostList('bottom5', data.bottom5);
@@ -647,47 +405,23 @@
             }
         }
         
-        function renderChart(chartData) {
+        function renderChart(data) {
             const container = document.getElementById('chart');
-            const maxLikes = Math.max(...chartData.map(d => d.likes), 1);
-            
-            container.innerHTML = chartData.map(d => {
-                const height = (d.likes / maxLikes * 100);
-                return `
-                    <div class="bar" style="height: ${Math.max(height, 3)}%">
-                        <div class="bar-tooltip">
-                            <strong>${d.title}</strong><br>
-                            ${formatDate(d.date)}<br>
-                            ❤️ ${d.likes} · 💬 ${d.comments}
-                        </div>
-                    </div>
-                `;
+            const max = Math.max(...data.map(d => d.likes), 1);
+            container.innerHTML = data.map(d => {
+                const h = Math.max(d.likes / max * 100, 3);
+                return `<div class="bar" style="height:${h}%"><div class="bar-tooltip"><strong>${d.title}</strong><br>${formatDate(d.date)} ${d.time}<br>❤️${d.likes} 💬${d.comments} 💾${d.saved} 🔄${d.shares}<br>Reach: ${d.reach}</div></div>`;
             }).join('');
         }
         
-        function renderPostList(containerId, posts) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = posts.map(p => `
-                <a href="${p.permalink}" target="_blank" class="post-item">
-                    <span class="title">${escapeHtml(p.title)}</span>
-                    <span class="meta">
-                        <span class="likes">❤️ ${p.likes}</span>
-                        <span class="comments">💬 ${p.comments}</span>
-                    </span>
-                </a>
-            `).join('');
+        function renderPostList(id, posts) {
+            document.getElementById(id).innerHTML = posts.map(p => 
+                `<a href="${p.permalink}" target="_blank" class="post-item"><span class="title">${escapeHtml(p.title)}</span><span class="meta"><span class="likes">❤️${p.likes}</span><span class="saved">💾${p.saved}</span><span class="shares">🔄${p.shares}</span></span></a>`
+            ).join('');
         }
         
-        function formatDate(dateStr) {
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        function formatDate(d) { return new Date(d).toLocaleDateString('en-GB', {month:'short', day:'numeric'}); }
+        function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
         
         refreshData();
     </script>
