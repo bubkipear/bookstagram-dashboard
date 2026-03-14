@@ -23,9 +23,9 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: 'Token expired or invalid', details: profile.error });
     }
     
-    // Fetch recent posts
+    // Fetch recent posts with insights
     const postsRes = await fetch(
-      `https://graph.instagram.com/me/media?fields=id,caption,media_type,timestamp,permalink,like_count,comments_count&limit=50&access_token=${token}`
+      `https://graph.instagram.com/me/media?fields=id,caption,media_type,timestamp,permalink,like_count,comments_count,insights.metric(reach,impressions)&limit=50&access_token=${token}`
     );
     const postsData = await postsRes.json();
     
@@ -33,13 +33,22 @@ export default async function handler(req, res) {
     const posts = postsData.data || [];
     const totalLikes = posts.reduce((sum, p) => sum + (p.like_count || 0), 0);
     const totalComments = posts.reduce((sum, p) => sum + (p.comments_count || 0), 0);
+    const totalReach = posts.reduce((sum, p) => {
+      const reach = p.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0;
+      return sum + reach;
+    }, 0);
     const avgLikes = posts.length ? Math.round(totalLikes / posts.length) : 0;
     const avgComments = posts.length ? Math.round(totalComments / posts.length) : 0;
+    const avgReach = posts.length ? Math.round(totalReach / posts.length) : 0;
     
-    // Top 5 and bottom 5 posts
-    const sortedByLikes = [...posts].sort((a, b) => (b.like_count || 0) - (a.like_count || 0));
-    const top5 = sortedByLikes.slice(0, 5);
-    const bottom5 = sortedByLikes.slice(-5).reverse();
+    // Top 5 by reach (and backup by likes if reach unavailable)
+    const sortedByReach = [...posts].sort((a, b) => {
+      const aReach = a.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0;
+      const bReach = b.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0;
+      return bReach - aReach || (b.like_count || 0) - (a.like_count || 0);
+    });
+    const top5 = sortedByReach.slice(0, 5);
+    const bottom5 = sortedByReach.slice(-5).reverse();
     
     // Get posts from last 7 days
     const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
@@ -55,6 +64,8 @@ export default async function handler(req, res) {
       date: p.timestamp.split('T')[0],
       likes: p.like_count || 0,
       comments: p.comments_count || 0,
+      reach: p.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0,
+      impressions: p.insights?.data?.find(metric => metric.name === 'impressions')?.values?.[0]?.value || 0,
       title: p.caption ? p.caption.split('\n')[0].slice(0, 50) : 'Untitled'
     })).reverse(); // oldest first for chart
     
@@ -70,6 +81,7 @@ export default async function handler(req, res) {
       stats: {
         avgLikes,
         avgComments,
+        avgReach,
         engagementRate,
         totalPosts: posts.length
       },
@@ -78,6 +90,8 @@ export default async function handler(req, res) {
         date: p.timestamp.split('T')[0],
         likes: p.like_count || 0,
         comments: p.comments_count || 0,
+        reach: p.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0,
+        impressions: p.insights?.data?.find(metric => metric.name === 'impressions')?.values?.[0]?.value || 0,
         permalink: p.permalink
       })),
       bottom5: bottom5.map(p => ({
@@ -85,6 +99,8 @@ export default async function handler(req, res) {
         date: p.timestamp.split('T')[0],
         likes: p.like_count || 0,
         comments: p.comments_count || 0,
+        reach: p.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0,
+        impressions: p.insights?.data?.find(metric => metric.name === 'impressions')?.values?.[0]?.value || 0,
         permalink: p.permalink
       })),
       thisWeek: thisWeekPosts.map(p => ({
@@ -92,6 +108,8 @@ export default async function handler(req, res) {
         date: p.timestamp.split('T')[0],
         likes: p.like_count || 0,
         comments: p.comments_count || 0,
+        reach: p.insights?.data?.find(metric => metric.name === 'reach')?.values?.[0]?.value || 0,
+        impressions: p.insights?.data?.find(metric => metric.name === 'impressions')?.values?.[0]?.value || 0,
         permalink: p.permalink
       })),
       chartData
